@@ -1,0 +1,13 @@
+name: Count 1 to 10
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run count.js
+        run: node count.js
