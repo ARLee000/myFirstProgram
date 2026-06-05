@@ -13,6 +13,7 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#progress">Progress</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -54,6 +55,55 @@
     </div>
   </section>
 
+  <section id="progress">
+    <h2>Progress</h2>
+    <div class="progress-tracker">
+      <div class="progress-header">
+        <span class="progress-label">전체 600시간</span>
+        <span class="progress-meta" id="progress-timestamp"></span>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-row-label">
+          <span class="progress-row-name">완료</span>
+          <span class="progress-row-value" id="done-pct">47.3%</span>
+          <span class="progress-row-hours">(284시간)</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill done" style="--target-width: 47.3%"></div>
+        </div>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-row-label">
+          <span class="progress-row-name">남음</span>
+          <span class="progress-row-value" id="left-pct">52.7%</span>
+          <span class="progress-row-hours">(316시간)</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill remaining" style="--target-width: 52.7%"></div>
+        </div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="summary-stat">
+          <span class="summary-num">284</span>
+          <span class="summary-unit">시간 완료</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-stat">
+          <span class="summary-num">316</span>
+          <span class="summary-unit">시간 남음</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-stat">
+          <span class="summary-num">600</span>
+          <span class="summary-unit">시간 전체</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="skills">
     <h2>Skills</h2>
     <ul class="skills-list">
@@ -75,5 +125,21 @@
     <p>&copy; 2026 Aram Lee. Built with care.</p>
   </footer>
 
+  <script>
+    document.getElementById('progress-timestamp').textContent =
+      new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' }) + ' 기준';
+
+    const bars = document.querySelectorAll('.progress-bar-fill');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          bar.style.width = bar.style.getPropertyValue('--target-width');
+          observer.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(bar => observer.observe(bar));
+  </script>
 </body>
 </html>
